@@ -8,6 +8,10 @@ function _is_git_dirty
   echo (command git status -s --ignore-submodules=dirty ^/dev/null)
 end
 
+function _is_not_pushed
+  echo (command git status -bs | grep -hoe '\[.*\]' )
+end
+
 function fish_prompt
   set fish_greeting
   set -l cyan (set_color -o cyan)
@@ -34,13 +38,17 @@ function fish_prompt
   if [ (_git_branch_name) ]
     set -l git_branch '[' (_git_branch_name) ']'
 
+    # show if there are any changes
     if [ (_is_git_dirty) ]
       set git_info $red $git_branch "×"
     else
       set git_info $cyan $git_branch
+      set git_info $red (_is_not_pushed)
     end
     echo -n -s ' ' $git_info $normal
   end
+
+  echo -ens "\n"
 
   # terminate with a nice prompt char:
   if [ (id -u) = "0" ];
@@ -48,5 +56,5 @@ function fish_prompt
   else
     set indicate '$'
   end
-  echo -n -s $blue " $indicate " $normal
+  echo -n -s $blue "$indicate " $normal
 end
