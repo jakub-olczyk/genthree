@@ -9,6 +9,12 @@
 
 <br/>
 
+# Features
+
+* Removal of the date/time from the right side
+* Now, when in directory with GIT repository you'll know if there are any
+  **not** pushed commits.
+
 # Credits:
 
 * Forked from https://github.com/ribugent/theme-gentoo and modified to follow 
