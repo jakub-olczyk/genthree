@@ -40,11 +40,12 @@ function fish_prompt
 
     # show if there are any changes
     if [ (_is_git_dirty) ]
-      set git_info $red $git_branch "×"
+      set git_info $red
     else
-      set git_info $cyan $git_branch
-      set git_info $red (_is_not_pushed)
+      set git_info $cyan 
     end
+    set git_info $git_info $git_branch
+    set git_info $git_info $red (_is_not_pushed)
     echo -n -s ' ' $git_info $normal
   end
 
